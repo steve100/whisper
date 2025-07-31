@@ -4,9 +4,13 @@
  
 ```
 High-performance inference of OpenAI's Whisper automatic speech recognition (ASR) model:
- link: https://github.com/openai/whisper
  link: https://github.com/ggml-org/whisper.cpp
- link: https://huggingface.co/openai/whisper-large-v2  -- I am running /ggml-large-v2.bin
+ 
+ Actual Links for Whisper
+
+ Make sure you take a look at these links.  They explain much.
+ Link: https://github.com/openai/whisper
+ Link: https://huggingface.co/openai/whisper-large-v2  -- I am running /ggml-large-v2.bin
  Link: https://huggingface.co/openai/whisper-large-v3
 
 ## Testing
@@ -15,15 +19,26 @@ System:   AMD Ryzen 7 8745HS w/ Radeon 780M Graphics  64 Gb RAM
 Tested Under Windows 11 pro WSL2 Ubuntu
 Tested Under Ubuntu 24:04
 
+```
 ## Overall
 ```
-Reactions: 
-It fits in RAM without SWAP.  You can adjust the core count.
+Runtime Reactions: 
+For Better Performance:  8 threads was a good choice for RAM on this system
+   More Threads and More RAM than default.
+   See Bash program run-main-whisper.sh
 
+Configuration Goal: 
+As many threads that I could use that 
+1. Fits in in 64 Gb of RAM without SWAP. 
+2. Proper use of I/O on the disk.  Not too much nor too little.
+3. I stopped testing configuration options when it was "good enough"
+
+Local vs Cloud:
 ChatGPT chat will do "free" translations under your subscription
 OpenAI with a key will do transcriptions for about $0.60 an hour when loaded from python.
 This can get expensive.
 
+``
 ## Discussion of Costs
 ```
 Discussion of Running Locally vs at OpenAI
