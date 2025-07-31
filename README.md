@@ -1,1 +1,117 @@
-hi
+# Whisper
+
+## A repackaging of Whisper cpp for running OpenAI Whisper on a local On-Site Machine
+ 
+```
+High-performance inference of OpenAI's Whisper automatic speech recognition (ASR) model:
+ link: https://github.com/openai/whisper
+ link: https://github.com/ggml-org/whisper.cpp
+ link: https://huggingface.co/openai/whisper-large-v2  -- I am running /ggml-large-v2.bin
+ Link: https://huggingface.co/openai/whisper-large-v3
+
+## Testing
+System:   AMD Ryzen 7 8745HS w/ Radeon 780M Graphics  64 Gb RAM
+          Uses CPU only.  8 cores/16 threads 12 graphics cores  64 Gb RAM
+Tested Under Windows 11 pro WSL2 Ubuntu
+Tested Under Ubuntu 24:04
+
+## Overall
+```
+Reactions: 
+It fits in RAM without SWAP.  You can adjust the core count.
+
+ChatGPT chat will do "free" translations under your subscription
+OpenAI with a key will do transcriptions for about $0.60 an hour when loaded from python.
+This can get expensive.
+
+## Discussion of Costs
+```
+Discussion of Running Locally vs at OpenAI
+OpenAI_Transcription_Guide_GitHub.md
+
+This also assumes you did not purchase a computer just for this task.
+
+```
+
+## Pre-Configuration
+
+```
+Choose an OS
+
+  Windows 11 (pro) with WSL2
+  1. Link: https://learn.microsoft.com/en-us/windows/wsl/install
+  2. It usually is trouble free. 
+  
+
+  Ubuntu 
+  1. link: https://www.linuxteck.com/how-to-install-ubuntu-22-04-lts-step-by-step/
+  2. Should work fine in a VM.
+  3. tested with Ubuntu 22.04 on a physical machine and in wsl2
+     lsb_release -a
+
+  Configuration
+  1. the build script pulls all the dependancies and does the build.
+  2. $home/whisper  is where I put the project
+  3. Tested with Ubuntu 24:04.  Other versions should work well.
+
+  Red Hat RHEL 
+  1. Different dependencies needed for building and you use dnf instead of apt
+  2. Should run fine.
+  
+  One could make a container image.
+
+```
+
+## Configuration:
+
+```
+  Location:
+  Put the project in the home directory
+  cd ~/ 
+  
+  Pulls the initial dependencies and does an initial wav to text transcription
+  bash ./buildit.sh  
+
+  Gets other models - hardcoded for now - currently using  large-v2
+  bash ./get-model.sh
+
+  Sends you to the Windows video file directory where the audio files also will reside.
+ .  goto_windows_videos.sh
+ 
+  
+   
+```
+
+## Usage:
+
+```
+Pre-Setup:
+
+  Obtain or make the .wav files.
+
+  Sends you to the Windows video file directory where the audio files also will reside.
+ .  goto_windows_videos.sh
+
+  Creates mp3 files from all the .mkv files in the directory
+ ./all_mp3.sh
+
+  Creates wav files from the mp3 files .. makes these .wav smaller than true wav files
+ ./mp3_2_wav.sh
+
+  Creates real lossless .wav files
+ ./all_real_wav.sh
+
+
+  You may want to clean up the extenstions changes *.mp3.wav to *.wav
+  ./rename-script.sh
+
+Run: 
+
+  Do the transcription - adjust parameters as needed.
+  bash ./run-main-whisper.sh <path2file.wav> 
+
+  This will create a .txt file
+  Copy it to where it is needed.
+
+```
+
